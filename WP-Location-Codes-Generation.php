@@ -187,17 +187,29 @@ class NWS_Location_Codes {
                 $dbf_data = $record['dbf'];
                 $shp_data = $record['shp'];
                 
-                // Get the zone identifier (STATE_ZONE field)
-                $state_zone = isset($dbf_data['STATE_ZONE']) ? trim($dbf_data['STATE_ZONE']) : '';
-                
-                if (empty($state_zone)) {
+                // Extract STATE and ZONE from DBF
+                $state = isset($dbf_data['STATE']) ? strtoupper(trim($dbf_data['STATE'])) : '';
+                $zone = isset($dbf_data['ZONE']) ? trim($dbf_data['ZONE']) : '';
+
+                // Fallback to STATE_ZONE if available and parse it
+                if (empty($zone) && !empty($dbf_data['STATE_ZONE'])) {
+                    $state_zone = trim($dbf_data['STATE_ZONE']);
+                    if (strlen($state_zone) >= 3) {
+                        $state = substr($state_zone, 0, 2);
+                        $zone = substr($state_zone, 2);
+                    }
+                }
+
+                // Validate
+                if (empty($state) || empty($zone)) {
+                    $not_found++;
                     $processed++;
                     $current++;
                     continue;
                 }
-                
-                // Construct UGC code from state_zone (e.g., "AKZ017" from state_zone)
-                $ugc_code = $state_zone;
+
+                // Reconstruct UGC code: STATE + "Z" + ZONE (e.g., FLZ201)
+                $ugc_code = $state . 'Z' . str_pad(ltrim($zone, '0'), 3, '0', STR_PAD_LEFT);
                 
                 // Find matching UGC post
                 $posts = get_posts(array(
