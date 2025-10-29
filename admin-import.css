@@ -1,0 +1,101 @@
+.nws-import-container {
+    max-width: 1200px;
+}
+
+.nws-import-container .card {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.nws-import-container h2 {
+    margin-top: 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.nws-import-container h3 {
+    margin-top: 20px;
+    color: #23282d;
+}
+
+.nws-button-group {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.nws-button-group .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#nws-import-progress {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+#nws-progress-bar {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+#nws-progress-text {
+    text-align: center;
+    font-weight: 600;
+    margin: 0;
+}
+
+.nws-import-stats {
+    margin: 20px 0;
+    padding: 20px;
+    background: #e7f5e7;
+    border-left: 4px solid #46b450;
+    border-radius: 4px;
+}
+
+.nws-import-stats h3 {
+    margin-top: 0;
+}
+
+.nws-import-stats ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nws-import-stats li {
+    padding: 8px 0;
+    border-bottom: 1px solid #d4edda;
+}
+
+.nws-import-stats li:last-child {
+    border-bottom: none;
+}
+
+.nws-import-stats strong {
+    color: #155724;
+    font-size: 1.2em;
+}
+
+#nws-import-status {
+    margin: 20px 0;
+}
+
+#nws-import-status.notice-success {
+    border-left-color: #46b450;
+}
+
+#nws-import-status.notice-error {
+    border-left-color: #dc3232;
+}
+
+code {
+    background: #f5f5f5;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
