@@ -26,8 +26,10 @@ A WordPress plugin that creates and manages UGC (Universal Geographic Code) and 
    ├── nws-location-codes.php (main plugin file)
    ├── js/
    │   └── admin-import.js
-   └── css/
-       └── admin-import.css
+   ├── css/
+   │   └── admin-import.css
+   └── includes/
+       └── shapefile.php
    ```
 
 3. **Activate the Plugin**
@@ -206,9 +208,50 @@ GPL v2 or later
 
 ## Changelog
 
+### Version 1.0.1
+- **FIXED**: UGC codes now use zone-based format (e.g., FLZ201, FLZ202) instead of county-based
+- **IMPROVED**: Better handling of multiple zones per county (Inland, Coastal, etc.)
+- **ADDED**: Error logging and display in import interface
+- **ADDED**: Custom admin columns showing code details
+- **ADDED**: Error count in import statistics
+- **IMPROVED**: Validation for essential fields during import
+- **FIXED**: Proper handling of duplicate detection
+
 ### Version 1.0.0
 - Initial release
 - UGC and SAME custom post types
 - NWS data import functionality
 - Meta field management
 - Admin interface with import/clear options
+
+## Understanding the Data Structure
+
+### Why Multiple Records for Same County?
+
+You may notice multiple UGC codes for the same county. This is **correct and intentional**:
+
+```
+FL|201|MOB|Escambia Inland|FL201|Escambia|12033|C|nw|30.8725|-87.4324
+FL|202|MOB|Escambia Coastal|FL202|Escambia|12033|C|nw|30.5100|-87.3166
+```
+
+**Results in**:
+- UGC Code: `FLZ201` (Escambia Inland)
+- UGC Code: `FLZ202` (Escambia Coastal)
+- SAME Code: `012033` (Escambia County - only one)
+
+**Why?**
+- Weather alerts use **zone-based UGC codes** (FLZ201, FLZ202)
+- Different zones have different forecast characteristics (inland vs coastal)
+- SAME codes remain county-based (one per county)
+- This allows precise targeting of weather warnings
+
+### Import Statistics
+
+After import, you'll see:
+- **UGC Codes Created**: Total number of zone-based codes (larger number)
+- **SAME Codes Created**: Total number of county-based codes (smaller number)
+- **Total Records Processed**: All lines processed from NWS file
+- **Errors/Skipped**: Any validation failures or problematic records
+
+If errors appear, review the error log to see which records had issues.

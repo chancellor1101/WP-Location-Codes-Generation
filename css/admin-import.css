@@ -99,3 +99,31 @@ code {
     border-radius: 3px;
     font-family: 'Courier New', monospace;
 }
+
+.nws-error-log {
+    margin: 20px 0;
+    padding: 20px;
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 4px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.nws-error-log h3 {
+    margin-top: 0;
+    color: #856404;
+}
+
+.nws-error-log ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 10px 0;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+.nws-error-log li {
+    padding: 4px 0;
+    color: #856404;
+}
